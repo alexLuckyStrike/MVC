@@ -6,10 +6,12 @@ module.exports = class Product {
   }
 
   save() {
+    console.log("Product save");
     products.push(this);
   }
 
   static fetchAll() {
+    console.log("Product fetchAll");
     return products;
   }
 };
