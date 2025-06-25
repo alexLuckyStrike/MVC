@@ -2,9 +2,8 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 const rootDir = require("../util/path");
+const errorController = require("../controllers/404");
 
-router.use((req, res, next) => {
-  res.render("404", { pageTitle: "Page Not Found", path: "/" });
-});
+router.use(errorController.errorPage);
 
 module.exports = router;
