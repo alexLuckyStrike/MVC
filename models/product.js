@@ -2,6 +2,25 @@ const fs = require("fs");
 const path = require("path");
 //const products = [];
 
+const getProductsFromFile = (cb) => {
+  const filePath = path.join(__dirname, "../", "data", "products.json");
+
+  fs.readFile(filePath, (err, fileContent) => {
+    if (err) {
+      console.log("1");
+      return cb([]);
+    }
+    // cb(JSON.parse(fileContent ? fileContent : "[]"));
+    if (fileContent) {
+      console.log("2");
+      cb(JSON.parse(fileContent));
+    }
+    //       Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    // Это значит, что res.render() (или res.send()) вызывается дважды или больше — а этого делать нельзя, потому что HTTP-заголовки уже отправлены.
+    // обработка на случай если удалить файл products.json
+  });
+};
+
 module.exports = class Product {
   constructor(t) {
     this.title = t;
@@ -28,23 +47,7 @@ module.exports = class Product {
   }
 
   static fetchAll(cb) {
-    const filePath = path.join(__dirname, "../", "data", "products.json");
-
-    fs.readFile(filePath, (err, fileContent) => {
-      if (err) {
-        console.log("1");
-        return cb([]);
-      }
-      // cb(JSON.parse(fileContent ? fileContent : "[]"));
-      if (fileContent) {
-        console.log("2");
-        cb(JSON.parse(fileContent));
-      }
-      //       Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-      // Это значит, что res.render() (или res.send()) вызывается дважды или больше — а этого делать нельзя, потому что HTTP-заголовки уже отправлены.
-      // обработка на случай если удалить файл products.json
-    });
-
+    getProductsFromFile(cb);
     // fs.readFile(filePath, (err, fileContent) => {
     //   if (err) {
     //     cb([]);
