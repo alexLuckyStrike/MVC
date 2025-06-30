@@ -2,6 +2,7 @@
 // admin.js///
 const Product = require("../models/product");
 exports.getAddProduct = (req, res, next) => {
+  console.log("we are going to move to /admin/add-product");
   res.render("add-product", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
@@ -13,6 +14,7 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
   // products.push({ title: req.body.title });
+  console.log("redirect to /");
   const product = new Product(req.body.title);
   // добавляем товар в корзину
   //console.log("postAddProduct:controllers", product);
@@ -23,6 +25,7 @@ exports.postAddProduct = (req, res, next) => {
 //shop.js//
 
 exports.getProducts = (req, res, next) => {
+  console.log("we are going to move to shop");
   Product.fetchAll((products) => {
     res.render("shop", {
       prods: products,

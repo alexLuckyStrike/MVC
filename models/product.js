@@ -1,18 +1,18 @@
 const fs = require("fs");
 const path = require("path");
-//const products = [];
+// const products = [];
 
 const getProductsFromFile = (cb) => {
   const filePath = path.join(__dirname, "../", "data", "products.json");
 
   fs.readFile(filePath, (err, fileContent) => {
     if (err) {
-      console.log("1");
+      // console.log("1");
       return cb([]);
     }
-    // cb(JSON.parse(fileContent ? fileContent : "[]"));
+
     if (fileContent) {
-      console.log("2");
+      // console.log("2");
       cb(JSON.parse(fileContent));
     }
     //       Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
@@ -27,32 +27,31 @@ module.exports = class Product {
   }
 
   save() {
+    getProductsFromFile((products) => {
+      products.push(this);
+      fs.writeFile(filePath, JSON.stringify(products), (err) => {
+        console.log("err:writeFile", err);
+      });
+    });
     const filePath = path.join(__dirname, "../", "data", "products.json");
     // __dirname указывает на папку откуда был вызов
     // здесь нужно использовать стрелочную функцию так как она ссылается на контекст класса
     // обычная функция будетт ссылаться на свой контекст и произойдет потеря контекста
 
-    fs.readFile(filePath, (err, fileContent) => {
-      let products = [];
-      if (!err) {
-        products = JSON.parse(fileContent);
-      }
-
-      products.push(this);
-
-      fs.writeFile(filePath, JSON.stringify(products), (err) => {
-        console.log("err:writeFile", err);
-      });
-    });
+    // fs.readFile(filePath, (err, fileContent) => {
+    //   // let products = [];
+    //   // if (!err) {
+    //   //   products = JSON.parse(fileContent);
+    //   // }
+    //   //
+    //   // products.push(this);
+    //   // fs.writeFile(filePath, JSON.stringify(products), (err) => {
+    //   //   console.log("err:writeFile", err);
+    //   // });
+    // });
   }
 
   static fetchAll(cb) {
     getProductsFromFile(cb);
-    // fs.readFile(filePath, (err, fileContent) => {
-    //   if (err) {
-    //     cb([]);
-    //   }
-    //   cb(JSON.parse(fileContent));
-    // });
   }
 };
