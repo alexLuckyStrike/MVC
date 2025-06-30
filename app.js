@@ -18,7 +18,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
-app.use(errorPage);
+//
 app.use(cartPage);
+/// если ошибку поставить перед роутом все слосается порядок имеет значение
+app.use(errorPage);
 
 app.listen(1000);
