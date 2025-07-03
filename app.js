@@ -12,12 +12,14 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorPage = require("./routes/error");
 const cartPage = require("./routes/cart");
+const productsPage = require("./routes/productsPage");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+app.use(productsPage);
 //
 app.use(cartPage);
 /// если ошибку поставить перед роутом все слосается порядок имеет значение
