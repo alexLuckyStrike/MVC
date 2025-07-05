@@ -13,10 +13,12 @@ const shopRoutes = require("./routes/shop");
 const errorPage = require("./routes/error");
 const cartPage = require("./routes/cart");
 const productsPage = require("./routes/productsPage");
+const adminProducts = require("./routes/adminProducts");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/admin", adminProducts);
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(productsPage);
