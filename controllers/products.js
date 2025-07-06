@@ -17,6 +17,11 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
+  console.log("req.body:", req.body);
+  console.log("title:", title);
+  console.log("imageUrl:", imageUrl);
+  console.log("price:", price);
+  console.log("description:", description);
 
   const product = new Product(title, imageUrl, description, price);
   // добавляем товар в корзину
